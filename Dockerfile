@@ -1,20 +1,21 @@
-FROM python:3
+FROM jupyterhub/jupyterhub
 
-RUN apt-get update;
-RUN apt-get install -y npm
-RUN npm install -g configurable-http-proxy
+RUN apt-get update && apt-get upgrade -y
 
-RUN mkdir -p /home/dev/notebooks
+ADD /conf/jupyterhub_config.py /srv/jupyterhub/jupyterhub_config.py
 
-RUN python -m venv /opt/jupyterhub
-RUN /opt/jupyterhub/bin/pip install --upgrade --no-cache-dir jupyterhub==1.0.0 jupyter notebook pip
-RUN /opt/jupyterhub/bin/pip install oauthenticator
+RUN pip install jupyter oauthenticator
 
-# Remove DHS_KEY too small error because of bad configuration of python:3 with keycloak
-RUN rm /etc/ssl/openssl.cnf
+RUN openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes \
+  -keyout /srv/jupyterhub/jhubssl.key \
+  -out /srv/jupyterhub/jhubssl.crt \
+  -subj "/C=DE/ST=xx/L=xx/O=TUHH/OU=xx/CN=xxxx Self-Signed" \
+  -addext "subjectAltName=DNS:localhost,DNS:jhub,DNS:jupyterhub,IP:127.0.0.1" \
+  && cp /srv/jupyterhub/jhubssl.crt /usr/local/share/ca-certificates/ \
+  && chmod 644 /usr/local/share/ca-certificates/jhubssl.crt \
+  && dpkg-reconfigure ca-certificates \
+  && update-ca-certificates --fresh
 
-# # Install valeria authenticator package
-# COPY . /usr/local/src/valeria_authenticator
-# RUN cd /usr/local/src/valeria_authenticator; /opt/jupyterhub/bin/python setup.py develop
-
-ENTRYPOINT /opt/jupyterhub/bin/jupyterhub --config /etc/jupyterhub/conf/jupyterhub_config.py
+ENV PYCURL_SSL_LIBRARY=openssl
+RUN apt-get -y install python3-dev gcc curl libcurl3-openssl-dev \
+  && pip install --no-input --ignore-installed --force-reinstall pycurl

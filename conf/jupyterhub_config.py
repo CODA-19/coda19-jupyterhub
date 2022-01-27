@@ -55,5 +55,7 @@ class ConcreteCodaAuthenticator(CodaAuthenticator):
 
 
 # Activation
+c.JupyterHub.ssl_cert = 'jhubssl.crt'
+c.JupyterHub.ssl_key = 'jhubssl.key'
 c.JupyterHub.authenticator_class = ConcreteCodaAuthenticator
 c.Application.log_level = 'DEBUG'
