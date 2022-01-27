@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  jhub:
+    build:
+      context: .
+    env_file:
+      - .env
+    volumes:
+      - ${PWD}/conf:/etc/jupyterhub/conf
+    ports:
+      - "8000:8000"
