@@ -59,3 +59,6 @@ c.JupyterHub.ssl_cert = 'jhubssl.crt'
 c.JupyterHub.ssl_key = 'jhubssl.key'
 c.JupyterHub.authenticator_class = ConcreteCodaAuthenticator
 c.Application.log_level = 'DEBUG'
+
+# Spawner portion
+c.JupyterHub.spawner_class='jupyterhub.spawner.LocalProcessSpawner'
