@@ -24,3 +24,4 @@ RUN pip install jupyter oauthenticator
 
 # # User configuration
 RUN useradd -ms /bin/bash jupyteruser
+RUN useradd -ms /bin/bash testuser

@@ -1,3 +1,4 @@
 .env
 jupyterhub_cookie_secret
 jupyterhub.sqlite
+home
