@@ -17,11 +17,19 @@ ENV PYCURL_SSL_LIBRARY=openssl
 RUN apt-get -y install python3-dev gcc curl libcurl3-openssl-dev \
   && pip install --no-input --ignore-installed --force-reinstall pycurl
 
+# Install git
+RUN apt-get -y install git-all
+
 # Setup jupyterhub
 ADD /conf/jupyterhub_config.py /srv/jupyterhub/jupyterhub_config.py
 
+RUN pip install jupyterlab
 RUN pip install jupyter oauthenticator
 
 # # User configuration
 RUN useradd -ms /bin/bash jupyteruser
 RUN useradd -ms /bin/bash testuser
+
+# Jupyterlab Extensions config
+RUN pip install jupyterlab-s3-browser
+RUN pip install --upgrade jupyterlab jupyterlab-git

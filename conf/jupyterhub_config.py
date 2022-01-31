@@ -62,3 +62,6 @@ c.Application.log_level = 'DEBUG'
 
 # Spawner portion
 c.JupyterHub.spawner_class='jupyterhub.spawner.LocalProcessSpawner'
+
+# Jupyterlab
+c.Spawner.cmd=["jupyter-labhub"]
