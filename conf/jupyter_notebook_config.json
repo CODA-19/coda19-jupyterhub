@@ -1,0 +1,8 @@
+{
+    "NotebookApp": {
+      "nbserver_extensions": {
+        "jupyterlab_s3_browser": true,
+        "jupyterlab-git": true
+      }
+    }
+  }
