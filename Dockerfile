@@ -30,13 +30,6 @@ RUN pip install jupyter oauthenticator
 RUN useradd -ms /bin/bash jupyteruser
 RUN useradd -ms /bin/bash testuser
 
-# S3 config
-RUN pip install s3contents
-ADD /conf/jupyter_notebook_config.json /home/jupyteruser/.jupyter/jupyter_notebook_config.json
-RUN chmod 777 /home/jupyteruser/.jupyter/jupyter_notebook_config.json
-
+# Jupyterlab Extensions config
 RUN pip install jupyterlab-s3-browser
-RUN mkdir /home/jupyteruser/.jupyter/migrated
-RUN jupyter serverextension enable --py jupyterlab_s3_browser
-
 RUN pip install --upgrade jupyterlab jupyterlab-git
