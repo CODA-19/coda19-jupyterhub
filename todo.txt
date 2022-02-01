@@ -5,3 +5,4 @@
 5. Setup images to use jupyterlab & git extension                   ->
 6. Add code examples to use hub-api with keycloak token             ->
 7. Clean up of none use pods for jupyternotebooks                   ->
+(https://tljh.jupyter.org/en/latest/topic/idle-culler.html)
