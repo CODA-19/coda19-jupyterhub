@@ -1,0 +1,7 @@
+1. Create jupyterhub database (fondation)                           ->
+2. Change recipy to use database instead of persistent volume       ->
+3. Integrate keycloak login on openshift                            ->
+4. Use selectable image on hub start up                             ->
+5. Setup images to use jupyterlab & git extension                   ->
+6. Add code examples to use hub-api with keycloak token             ->
+7. Clean up of none use pods for jupyternotebooks                   ->
