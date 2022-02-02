@@ -101,3 +101,5 @@ c.KubeSpawner.volume_mounts = [
         'mountPath': '/opt/app-root/src'
     }
 ]
+
+c.KubeSpawner.working_dir = '/opt/app-root/src/{username}'

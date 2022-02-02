@@ -12,7 +12,7 @@ oc apply -f ./templates/jupyterhub-workspace.yaml
 oc new-app --template jupyterhub-deployer
 
 # With jupyterhub_config.py
-oc new-app --template jupyterhub-deployer --param JUPYTERHUB_CONFIG="$(cat minimal_jupyterhub_config.py)"
+oc new-app --template jupyterhub-deployer --param JUPYTERHUB_CONFIG="$(cat jupyterhub_config_base.py)"
 (Note: must update config maps as file passe in environnement variable is single lines)
 
 # Openshift cleanup
