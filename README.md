@@ -18,6 +18,10 @@ oc new-app --template jupyterhub-deployer --param JUPYTERHUB_CONFIG="$(cat minim
 # Openshift cleanup
 oc delete all,configmap,pvc,serviceaccount,rolebinding --selector app=jupyterhub
 
-# Persistent volume (Temporary)
+# Persistent volume db (Temporary)
 oc delete pv jupyterhub-db
-oc apply -f ./persistent-volume.yaml
+oc apply -f ./db-persistent-volume.yaml
+
+# Persisten volume user storage
+oc delete pv jupyterhub-user
+oc apply -f ./user-persistent-volume.yaml
