@@ -23,7 +23,7 @@ class CodaAuthenticator(GenericOAuthenticator):
         return authentication
 
 
-c.OAuthenticator.oauth_callback_url = 'https://jupyterhub-coda19-jupyterhub.pca.svc.valeria.science/hub/oauth_callback'
+c.OAuthenticator.oauth_callback_url = '{}/hub/oauth_callback'.format(os.environ['JUPYTERHUB_URL'])
 
 
 class KeycloakMixin(OAuth2Mixin):
@@ -58,32 +58,13 @@ class ConcreteCodaAuthenticator(CodaAuthenticator):
 c.JupyterHub.authenticator_class = ConcreteCodaAuthenticator
 c.Application.log_level = 'DEBUG'
 
-# Jupyterlab
-c.KubeSpawner.environment = { 'JUPYTER_ENABLE_LAB': 'true' }
-c.Spawner.cmd=["jupyter-labhub"]
-
-
-# Choice of image
-c.KubeSpawner.profile_list = [
-    {
-        'display_name': 'Minimal Notebook 3.5',
-        'default': True,
-        'kubespawner_override': {
-            'image_spec': 's2i-minimal-notebook:3.5'
-        }
-    },
-    {
-        'display_name': 'Minimal Notebook 3.6',
-        'kubespawner_override': {
-            'image_spec': 's2i-minimal-notebook:3.6'
-        }
-    }
-]
+# Persist auth state in single user instance
+c.Authenticator.enable_auth_state = True
 
 # Persisten volumes
 c.KubeSpawner.user_storage_pvc_ensure = True
 
-c.KubeSpawner.pvc_name_template = 'jupyterhub-user'
+c.KubeSpawner.pvc_name_template = os.environ['USER_PERSISTENT_VOLUME']
 c.KubeSpawner.user_storage_capacity = '1Gi'
 
 c.KubeSpawner.volumes = [
@@ -104,9 +85,6 @@ c.KubeSpawner.volume_mounts = [
 
 c.KubeSpawner.working_dir = '/opt/app-root/src/{username}'
 
-# Persist auth state in single user instance
-c.Authenticator.enable_auth_state = True
-
 
 # Kill idle notebooks
 c.JupyterHub.services = [
@@ -114,5 +92,27 @@ c.JupyterHub.services = [
         'name': 'cull-idle',
         'admin': True,
         'command': ['cull-idle-servers', '--timeout=300'],
+    }
+]
+
+# Jupyterlab
+c.KubeSpawner.environment = { 'JUPYTER_ENABLE_LAB': 'true' }
+c.Spawner.cmd=["jupyter-labhub"]
+
+
+# Choice of image
+c.KubeSpawner.profile_list = [
+    {
+        'display_name': 'Minimal Notebook 3.5',
+        'default': True,
+        'kubespawner_override': {
+            'image_spec': 's2i-minimal-notebook:3.5'
+        }
+    },
+    {
+        'display_name': 'Minimal Notebook 3.6',
+        'kubespawner_override': {
+            'image_spec': 's2i-minimal-notebook:3.6'
+        }
     }
 ]
