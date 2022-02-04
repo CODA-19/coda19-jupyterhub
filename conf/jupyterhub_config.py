@@ -11,6 +11,8 @@ class CodaAuthenticator(GenericOAuthenticator):
         super().__init__(*args, **kwargs)
 
     async def pre_spawn_start(self, user, spawner):
+        self.log.debug('=== pre_spawn_start ===')
+
         auth_state = await user.get_auth_state()
         if not auth_state:
             self.log.warning("AUTH_STATE NOT ENABLED?")
@@ -65,3 +67,6 @@ c.JupyterHub.spawner_class='jupyterhub.spawner.LocalProcessSpawner'
 
 # Jupyterlab
 c.Spawner.cmd=["jupyter-labhub"]
+
+# Persist auth state in single user instance
+c.Authenticator.enable_auth_state = True

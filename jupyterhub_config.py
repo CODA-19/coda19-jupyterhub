@@ -14,11 +14,12 @@ class CodaAuthenticator(GenericOAuthenticator):
         if not auth_state:
             self.log.warning("AUTH_STATE NOT ENABLED?")
             return
+
+        self.log.debug(auth_state)
         spawner.environment['OAUTH_TOKEN'] = auth_state['access_token']
 
     async def authenticate(self, handler, data=None):
         authentication = await super().authenticate(handler, data)
-        self.log.debug(f'authentication={authentication}')
         return authentication
 
 
@@ -58,24 +59,23 @@ c.JupyterHub.authenticator_class = ConcreteCodaAuthenticator
 c.Application.log_level = 'DEBUG'
 
 # Jupyterlab
-# c.KubeSpawner.environment = { 'JUPYTER_ENABLE_LAB': 'true' }
-# c.Spawner.cmd=["jupyter-labhub"]
+c.KubeSpawner.environment = { 'JUPYTER_ENABLE_LAB': 'true' }
+c.Spawner.cmd=["jupyter-labhub"]
 
 
 # Choice of image
 c.KubeSpawner.profile_list = [
     {
-        'display_name': 'Minimal Notebook (Classic)',
+        'display_name': 'Minimal Notebook 3.5',
         'default': True,
         'kubespawner_override': {
-            'image_spec': 's2i-minimal-notebook:3.6'
+            'image_spec': 's2i-minimal-notebook:3.5'
         }
     },
     {
-        'display_name': 'Minimal Notebook (JupyterLab)',
+        'display_name': 'Minimal Notebook 3.6',
         'kubespawner_override': {
-            'image_spec': 's2i-minimal-notebook:3.6',
-            'environment': { 'JUPYTER_ENABLE_LAB': 'true' }
+            'image_spec': 's2i-minimal-notebook:3.6'
         }
     }
 ]
@@ -103,3 +103,16 @@ c.KubeSpawner.volume_mounts = [
 ]
 
 c.KubeSpawner.working_dir = '/opt/app-root/src/{username}'
+
+# Persist auth state in single user instance
+c.Authenticator.enable_auth_state = True
+
+
+# Kill idle notebooks
+c.JupyterHub.services = [
+    {
+        'name': 'cull-idle',
+        'admin': True,
+        'command': ['cull-idle-servers', '--timeout=300'],
+    }
+]
