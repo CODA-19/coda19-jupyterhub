@@ -2,3 +2,6 @@
 jupyterhub_cookie_secret
 jupyterhub.sqlite
 home
+
+os-dv.env
+os-pr.env

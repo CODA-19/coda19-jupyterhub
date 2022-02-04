@@ -44,6 +44,18 @@ parameters:
   description: Amount of memory available to each notebook.
   value: 512Mi
   required: true
+- name: JUPYTERHUB_OAUTH_CLIENT_ID
+  required: true
+- name: JUPYTERHUB_OAUTH_CLIENT_SECRET
+  required: true
+- name: JUPYTERHUB_OAUTH_CLIENT_URL
+  required: true
+- name: JUPYTERHUB_CRYPT_KEY
+  required: true
+- name: NOTEBOOK_USER_PERSISTENT_VOLUME
+  required: true
+- name: JUPYTERHUB_URL
+  required: true
 objects:
 - kind: ConfigMap
   apiVersion: v1
@@ -149,6 +161,18 @@ objects:
             value: postgres
           - name: JUPYTERHUB_COOKIE_SECRET
             value: "${COOKIE_SECRET}"
+          - name: JUPYTERHUB_OAUTH_CLIENT_ID
+            value: "${JUPYTERHUB_OAUTH_CLIENT_ID}"
+          - name: JUPYTERHUB_OAUTH_CLIENT_SECRET
+            value: "${JUPYTERHUB_OAUTH_CLIENT_SECRET}"
+          - name: JUPYTERHUB_OAUTH_CLIENT_URL
+            value: "${JUPYTERHUB_OAUTH_CLIENT_URL}"
+          - name: JUPYTERHUB_CRYPT_KEY
+            value: "${JUPYTERHUB_CRYPT_KEY}"
+          - name: NOTEBOOK_USER_PERSISTENT_VOLUME
+            value: "${NOTEBOOK_USER_PERSISTENT_VOLUME}"
+          - name: JUPYTERHUB_URL
+            value: "${JUPYTERHUB_URL}"
           volumeMounts:
           - name: config
             mountPath: "/opt/app-root/configs"

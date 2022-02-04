@@ -28,8 +28,8 @@ c.OAuthenticator.oauth_callback_url = '{}/hub/oauth_callback'.format(os.environ[
 
 class KeycloakMixin(OAuth2Mixin):
     # callback_url
-    _OAUTH_AUTHORIZE_URL = '{}/auth'.format(os.environ['OAUTH_URL'])
-    _OAUTH_ACCESS_TOKEN_URL = '{}/token'.format(os.environ['OAUTH_URL'])
+    _OAUTH_AUTHORIZE_URL = '{}/auth'.format(os.environ['JUPYTERHUB_OAUTH_CLIENT_URL'])
+    _OAUTH_ACCESS_TOKEN_URL = '{}/token'.format(os.environ['JUPYTERHUB_OAUTH_CLIENT_URL'])
 
 # Note: will be in ansible script
 
@@ -41,14 +41,14 @@ class KeycloakLoginHandler(OAuthLoginHandler, KeycloakMixin):
 class ConcreteCodaAuthenticator(CodaAuthenticator):
     login_service = 'Keycloak'
     login_handler = KeycloakLoginHandler
-    client_id = os.environ['CLIENT_ID']
-    client_secret = os.environ['CLIENT_SECRET']
+    client_id = os.environ['JUPYTERHUB_OAUTH_CLIENT_ID']
+    client_secret = os.environ['JUPYTERHUB_OAUTH_CLIENT_SECRET']
     userdata_method = 'GET'
     userdata_params = {"state": "state"}
 
-    authorize_url = '{}/auth'.format(os.environ['OAUTH_URL'])
-    token_url = '{}/token'.format(os.environ['OAUTH_URL'])
-    userdata_url = '{}/userinfo'.format(os.environ['OAUTH_URL'])
+    authorize_url = '{}/auth'.format(os.environ['JUPYTERHUB_OAUTH_CLIENT_URL'])
+    token_url = '{}/token'.format(os.environ['JUPYTERHUB_OAUTH_CLIENT_URL'])
+    userdata_url = '{}/userinfo'.format(os.environ['JUPYTERHUB_OAUTH_CLIENT_URL'])
 
     scope = ['openid']
     username_key = "preferred_username"
@@ -64,7 +64,7 @@ c.Authenticator.enable_auth_state = True
 # Persisten volumes
 c.KubeSpawner.user_storage_pvc_ensure = True
 
-c.KubeSpawner.pvc_name_template = os.environ['USER_PERSISTENT_VOLUME']
+c.KubeSpawner.pvc_name_template = os.environ['NOTEBOOK_USER_PERSISTENT_VOLUME']
 c.KubeSpawner.user_storage_capacity = '1Gi'
 
 c.KubeSpawner.volumes = [

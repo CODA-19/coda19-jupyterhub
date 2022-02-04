@@ -6,14 +6,9 @@ The hub is protected by the coda19 keycloak instance.
 # Create project openshift
 oc apply -f ./templates/jupyterhub-builder.yaml
 oc apply -f ./templates/jupyterhub-deployer.yaml
-oc apply -f ./templates/jupyterhub-quickstart.yaml
-oc apply -f ./templates/jupyterhub-workspace.yaml
 
-oc new-app --template jupyterhub-deployer
-
-# With jupyterhub_config.py
-oc new-app --template jupyterhub-deployer --param JUPYTERHUB_CONFIG="$(cat jupyterhub_config.py)"
-(Note: must update config maps as file passe in environnement variable is single lines)
+oc new-app --template jupyterhub-deployer --param-file=os-dv.env
+(Note: must update config maps to use jupyter_config.py)
 
 # Openshift cleanup
 oc delete all,configmap,pvc,serviceaccount,rolebinding --selector app=jupyterhub
