@@ -49,7 +49,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "name": "python:3.6",
-                            "namespace": "openshift"
+                            "namespace": "coda19-jupyterhub"
                         }
                     }
                 },
