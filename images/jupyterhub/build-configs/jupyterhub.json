@@ -39,9 +39,9 @@
                     "type": "Git",
                     "git": {
                         "uri": "https://github.com/CODA-19/coda19-jupyterhub.git",
-                        "ref": "feature/deploi-images",
-                        "contextDir": "images/jupyterhub"                    
-                    }
+                        "ref": "feature/deploi-images"
+                    },
+                    "contextDir": "images/jupyterhub"                    
                 },
                 "strategy": {
                     "type": "Source",
