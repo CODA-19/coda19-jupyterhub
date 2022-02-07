@@ -40,7 +40,7 @@
                     "git": {
                         "uri": "https://github.com/CODA-19/coda19-jupyterhub.git",
                         "ref": "feature/deploi-images",
-                        "contextDir": "images/jupyterhub"
+                        "contextDir": "images/jupyterhub"                    
                     }
                 },
                 "strategy": {
@@ -49,7 +49,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "name": "python:3.6",
-                            "namespace": "coda19-jupyterhub"
+                            "namespace": "openshift"
                         }
                     }
                 },
