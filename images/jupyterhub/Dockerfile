@@ -16,10 +16,10 @@ RUN rm -rf /tmp/src/.git* && \
     chmod -R g+w /tmp/src && \
     mv /tmp/src/.s2i/bin /tmp/scripts
 
-USER 1001
-
-RUN RUN 
+RUN yum update -y; yum clean all
 RUN yum install postgresql-libs -y
+
+USER 1001
 
 ENV NPM_CONFIG_PREFIX=/opt/app-root \
     PYTHONPATH=/opt/app-root/src
