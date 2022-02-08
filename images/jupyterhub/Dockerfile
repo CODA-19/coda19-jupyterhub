@@ -1,4 +1,4 @@
-FROM registry.hub.docker.com/centos/python-36-centos7:latest
+FROM docker.io/centos/python-36-centos7:latest
 
 LABEL io.k8s.display-name="JupyterHub" \
       io.k8s.description="JupyterHub." \
@@ -15,9 +15,6 @@ RUN rm -rf /tmp/src/.git* && \
     chgrp -R 0 /tmp/src && \
     chmod -R g+w /tmp/src && \
     mv /tmp/src/.s2i/bin /tmp/scripts
-
-RUN RUN yum update -y; yum clean all
-RUN yum install postgresql-libs -y
 
 USER 1001
 
