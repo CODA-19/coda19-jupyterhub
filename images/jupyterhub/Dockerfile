@@ -16,6 +16,8 @@ RUN rm -rf /tmp/src/.git* && \
     chmod -R g+w /tmp/src && \
     mv /tmp/src/.s2i/bin /tmp/scripts
 
+RUN yum install postgresql-devel
+
 USER 1001
 
 ENV NPM_CONFIG_PREFIX=/opt/app-root \
