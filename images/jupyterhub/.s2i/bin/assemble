@@ -4,10 +4,6 @@ set -eo pipefail
 
 set -x
 
-# To be able and compile psychopg pip libraries
-yum update -y; yum clean all
-install postgresql-libs -y
-
 # Ensure we are using the latest pip and wheel packages.
 
 pip install -U pip setuptools wheel

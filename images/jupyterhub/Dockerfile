@@ -18,6 +18,9 @@ RUN rm -rf /tmp/src/.git* && \
 
 USER 1001
 
+RUN RUN 
+RUN yum install postgresql-libs -y
+
 ENV NPM_CONFIG_PREFIX=/opt/app-root \
     PYTHONPATH=/opt/app-root/src
 
