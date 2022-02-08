@@ -8,6 +8,7 @@ LABEL io.k8s.display-name="JupyterHub" \
 USER root
 
 COPY . /tmp/src
+RUN chmod -R 777 /tmp/src
 
 RUN rm -rf /tmp/src/.git* && \
     chown -R 1001 /tmp/src && \

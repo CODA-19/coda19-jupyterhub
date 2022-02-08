@@ -45,11 +45,8 @@
                 },
                 "strategy": {
                     "type": "Source",
-                    "sourceStrategy": {
-                        "from": {
-                            "kind": "DockerImage",
-                            "name": "registry.hub.docker.com/centos/python-36-centos7:latest"
-                        }
+                    "dockerStrategy": {
+                        "dockerfilePath": "Dockerfile"
                     }
                 },
                 "output": {
