@@ -12,6 +12,10 @@ RUN rm -rf /tmp/src/.git* && \
     rm -rf /tmp/scripts && \
     mv /tmp/src/.s2i/bin /tmp/scripts
 
+RUN yum update -y; yum clean all
+RUN yum install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.9-1.x86_64.rpm -y
+RUN yum install git -y
+
 USER 1001
 
 LABEL io.k8s.description="S2I builder for custom Jupyter notebooks." \
