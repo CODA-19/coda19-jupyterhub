@@ -20,6 +20,8 @@ RUN yum update -y; yum clean all
 RUN yum install gcc -y
 RUN yum install postgresql-libs -y
 
+RUN gcc --version
+
 USER 1001
 
 ENV NPM_CONFIG_PREFIX=/opt/app-root \
