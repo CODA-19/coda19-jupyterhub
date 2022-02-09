@@ -102,15 +102,16 @@ c.Spawner.cmd=["jupyter-labhub"]
 
 # Choice of image
 c.KubeSpawner.profile_list = [
-    {
-        'display_name': 'Minimal Notebook 3.5',
-        'default': True,
-        'kubespawner_override': {
-            'image_spec': 's2i-minimal-notebook:3.5'
-        }
-    },
+    # {
+    #     'display_name': 'Minimal Notebook 3.5',
+    #     'default': True,
+    #     'kubespawner_override': {
+    #         'image_spec': 's2i-minimal-notebook:3.5'
+    #     }
+    # },
     {
         'display_name': 'Minimal Notebook 3.6',
+        'default': True,
         'kubespawner_override': {
             'image_spec': 's2i-minimal-notebook:3.6'
         }
