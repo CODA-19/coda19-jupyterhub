@@ -114,5 +114,11 @@ c.KubeSpawner.profile_list = [
         'kubespawner_override': {
             'image_spec': 's2i-scipy-notebook:3.6'
         }
+    },
+    {
+        'display_name': 'Tensorflow Notebook 3.6',
+        'kubespawner_override': {
+            'image_spec': 's2i-tensorflow-notebook:3.6'
+        }
     }
 ]
