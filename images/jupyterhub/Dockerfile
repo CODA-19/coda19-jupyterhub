@@ -18,7 +18,9 @@ RUN rm -rf /tmp/src/.git* && \
 
 RUN yum update -y; yum clean all
 RUN yum install gcc -y
+RUN yum install python3-devel -y
 RUN yum install postgresql-libs -y
+RUN yum install postgresql-devel -y
 
 RUN gcc --version
 
