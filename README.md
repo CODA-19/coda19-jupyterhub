@@ -5,6 +5,8 @@ The hub is protected by the coda19 keycloak instance.
 
 # Provide openshift build images (source to image)
 oc apply -f ./images/jupyterhub/build-configs/jupyterhub.json
+(For now use this + update config map)
+oc apply -f https://raw.githubusercontent.com/jupyter-on-openshift/jupyterhub-quickstart/master/image-streams/jupyterhub.json
 
 # Create project openshift
 oc apply -f ./templates/jupyterhub-builder.yaml
