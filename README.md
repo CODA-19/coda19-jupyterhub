@@ -12,7 +12,7 @@ oc apply -f https://raw.githubusercontent.com/jupyter-on-openshift/jupyterhub-qu
 # Notebooks openshift build images (source to image)
 oc apply -f ./images/minimal-notebook/build-configs/s2i-minimal-notebook.json
 oc apply -f ./images/scipy-notebook/build-configs/s2i-scipy-notebook.json
-oc apply -f ./images/tensorflow-notebook/s2i-tensorflow-notebook.json
+oc apply -f ./images/tensorflow-notebook/build-configs/s2i-tensorflow-notebook.json
 
 # Create project openshift
 oc apply -f ./templates/jupyterhub-builder.yaml
