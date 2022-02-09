@@ -17,7 +17,7 @@ RUN rm -rf /tmp/src/.git* && \
     mv /tmp/src/.s2i/bin /tmp/scripts
 
 RUN yum update -y; yum clean all
-RUN yum group install "Development Tools" -y
+RUN yum install gcc -y
 RUN yum install postgresql-libs -y
 
 USER 1001
