@@ -5,3 +5,4 @@ jupyter_kernel_gateway==2.5.1
 dask==2.8.1;
 distributed==2.8.1;
 tornado==6.1.0;
+jupyterlab-git==0.34.2
