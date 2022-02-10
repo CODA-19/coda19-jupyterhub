@@ -12,13 +12,6 @@ set -eo pipefail
 
 jupyter nbextension enable --py widgetsnbextension --sys-prefix
 
-# Also activate ipywidgets/bokeh extension for JupyterLab.
-
-jupyter labextension install @jupyter-widgets/jupyterlab-manager@^1.0.1 --no-build
-jupyter labextension install jupyterlab_bokeh@1.0.0 --no-build
-
-jupyter lab build --debug --minimize=False
-
 # Install facets which does not have a pip package.
 
 cd /tmp
