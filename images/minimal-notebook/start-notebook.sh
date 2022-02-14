@@ -15,11 +15,6 @@ if [ x"$JUPYTER_MASTER_FILES" != x"" ]; then
     fi
 fi
 
-if [ x"$JUPYTERHUB_USER" != x"" ]; then
-    JUPYTER_WORKSPACE_PATH=/opt/app-root/src/$JUPYTERHUB_USER
-    setup-volume.sh /opt/app-root/src $JUPYTER_WORKSPACE_PATH
-fi
-
 JUPYTER_PROGRAM_ARGS="$JUPYTER_PROGRAM_ARGS $NOTEBOOK_ARGS"
 
 JUPYTER_NOTEBOOK_INTERFACE=${JUPYTER_NOTEBOOK_INTERFACE:-classic}
