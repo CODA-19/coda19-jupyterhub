@@ -17,7 +17,7 @@ fi
 
 if [ x"$JUPYTERHUB_USER" != x"" ]; then
     JUPYTER_WORKSPACE_PATH=/opt/app-root/src/$JUPYTERHUB_USER
-    mkdir $JUPYTER_WORKSPACE_PATH
+    mkdir -p $JUPYTER_WORKSPACE_PATH
     cd $JUPYTER_WORKSPACE_PATH
 fi
 

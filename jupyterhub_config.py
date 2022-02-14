@@ -83,8 +83,26 @@ c.KubeSpawner.volume_mounts = [
     }
 ]
 
-c.KubeSpawner.working_dir = '/opt/app-root/src/{username}'
+c.KubeSpawner.working_dir = '/opt/app-root/src'
+#c.KubeSpawner.working_dir = '/opt/app-root/src/{username}'
 
+# def create_dir_hook(spawner):
+#     username = spawner.user.name # get the username
+#     volume_path = os.path.join('/opt/app-root/src', username)
+
+
+#     if not os.path.exists(volume_path):
+#         # create a directory with umask 0755 
+#         # hub and container user must have the same UID to be writeable
+#         # still readable by other users on the system
+#         os.mkdir(volume_path) #, 0o755)
+#         print(' === Created folder {} ==='.format(volume_path))
+#         # now do whatever you think your user needs
+#         # ...
+#         pass
+
+# # attach the hook function to the spawner
+# c.KubeSpawner.pre_spawn_hook = create_dir_hook
 
 # Kill idle notebooks
 c.JupyterHub.services = [
