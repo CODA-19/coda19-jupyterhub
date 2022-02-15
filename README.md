@@ -6,7 +6,8 @@ The hub is protected by the coda19 keycloak instance.
 The base used for this repository is https://github.com/jupyter-on-openshift/jupyterhub-quickstart
 
 # Jupyterhub openshift image stream (Dockerhub + jupyterhub_config.py config map)
-docker build --pull --rm -f "images\jupyterhub\Dockerfile" -t coda19-jupyterhub:latest "images\jupyterhub"
+<!-- TODO: Fix build context so folder of docker file is from path and not this directory -->
+docker build -f "images\jupyterhub\Dockerfile" -t coda19-jupyterhub:latest "images\jupyterhub"
 docker tag coda19-jupyterhub:latest coda19/coda19-jupyterhub:latest
 docker push coda19/coda19-jupyterhub:latest
 
@@ -27,10 +28,6 @@ oc new-app --template jupyterhub-deployer --param-file=os-dv.env
 
 # Openshift cleanup
 oc delete all,configmap,pvc,serviceaccount,rolebinding --selector app=jupyterhub
-
-# Persistent volume db (Temporary)
-oc delete pv jupyterhub-db
-oc apply -f ./db-persistent-volume.yaml
 
 # Persisten volume user storage
 oc delete pv jupyterhub-user
