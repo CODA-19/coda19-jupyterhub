@@ -17,12 +17,9 @@ RUN rm -rf /tmp/src/.git* && \
     mv /tmp/src/.s2i/bin /tmp/scripts
 
 RUN yum update -y; yum clean all
-RUN yum install gcc -y
-# RUN yum install python3-devel -y -t
 RUN yum install postgresql-libs -y
 RUN yum install postgresql-devel -y
 
-RUN gcc --version
 
 USER 1001
 

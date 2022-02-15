@@ -17,7 +17,7 @@
                         "name": "3.4.0",
                         "from": {
                             "kind": "DockerImage",
-                            "name": "quay.io/jupyteronopenshift/jupyterhub:3.4.0"
+                            "name": "docker.io/coda19/coda19-jupyterhub:latest"
                         }
                     }
                 ]

@@ -3,11 +3,15 @@
 Jupyterhub instance used in openshift to do data analysis in the coda19 ecosystem.
 The hub is protected by the coda19 keycloak instance.
 
-# Jupyterhub openshift build images (source to image)
-oc apply -f ./images/jupyterhub/build-configs/jupyterhub.json
-(For now use this + update config map)
-oc apply -f https://raw.githubusercontent.com/jupyter-on-openshift/jupyterhub-quickstart/master/image-streams/jupyterhub.json
+The base used for this repository is https://github.com/jupyter-on-openshift/jupyterhub-quickstart
 
+# Jupyterhub openshift image stream (Dockerhub + jupyterhub_config.py config map)
+docker build --pull --rm -f "images\jupyterhub\Dockerfile" -t coda19-jupyterhub:latest "images\jupyterhub"
+docker tag coda19-jupyterhub:latest coda19/coda19-jupyterhub:latest
+docker push coda19/coda19-jupyterhub:latest
+
+oc apply -f ./images/jupyterhub/image-streams/jupyterhub.json
+(Copy jupyterhub_config.py in config map)
 
 # Notebooks openshift build images (source to image)
 oc apply -f ./images/minimal-notebook/build-configs/s2i-minimal-notebook.json
