@@ -5,7 +5,7 @@ The hub is protected by the coda19 keycloak instance.
 
 The base used for this repository is https://github.com/jupyter-on-openshift/jupyterhub-quickstart
 
-# Jupyterhub openshift image stream (Dockerhub + jupyterhub_config.py config map)
+# Jupyterhub openshift image stream (Dockerhub)
 docker build -f "images\jupyterhub\Dockerfile" -t coda19-jupyterhub:latest "images\jupyterhub"
 docker tag coda19-jupyterhub:latest coda19/coda19-jupyterhub:latest
 docker push coda19/coda19-jupyterhub:latest
