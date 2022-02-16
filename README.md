@@ -11,7 +11,6 @@ docker tag coda19-jupyterhub:latest coda19/coda19-jupyterhub:latest
 docker push coda19/coda19-jupyterhub:latest
 
 oc apply -f ./images/jupyterhub/image-streams/jupyterhub.json
-(Copy jupyterhub_config.py in config map)
 
 # Notebooks openshift build images (source to image)
 oc apply -f ./images/minimal-notebook/build-configs/s2i-minimal-notebook.json
