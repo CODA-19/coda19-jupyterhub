@@ -83,8 +83,7 @@ c.KubeSpawner.volume_mounts = [
     }
 ]
 
-c.KubeSpawner.working_dir = '/opt/app-root/src/{username}'
-
+c.KubeSpawner.working_dir = '/opt/app-root/src'
 
 # Kill idle notebooks
 c.JupyterHub.services = [
@@ -103,16 +102,22 @@ c.Spawner.cmd=["jupyter-labhub"]
 # Choice of image
 c.KubeSpawner.profile_list = [
     {
-        'display_name': 'Minimal Notebook 3.5',
+        'display_name': 'Minimal Notebook 3.6',
         'default': True,
         'kubespawner_override': {
-            'image_spec': 's2i-minimal-notebook:3.5'
+            'image_spec': 's2i-minimal-notebook:3.6'
         }
     },
     {
-        'display_name': 'Minimal Notebook 3.6',
+        'display_name': 'Scipy Notebook 3.6',
         'kubespawner_override': {
-            'image_spec': 's2i-minimal-notebook:3.6'
+            'image_spec': 's2i-scipy-notebook:3.6'
+        }
+    },
+    {
+        'display_name': 'Tensorflow Notebook 3.6',
+        'kubespawner_override': {
+            'image_spec': 's2i-tensorflow-notebook:3.6'
         }
     }
 ]

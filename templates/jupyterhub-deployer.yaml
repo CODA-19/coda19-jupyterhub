@@ -217,18 +217,6 @@ objects:
     tls:
       termination: edge
       insecureEdgeTerminationPolicy: Redirect
-- kind: PersistentVolumeClaim
-  apiVersion: v1
-  metadata:
-    name: "${APPLICATION_NAME}-db"
-    labels:
-      app: "${APPLICATION_NAME}"
-  spec:
-    accessModes:
-    - ReadWriteOnce
-    resources:
-      requests:
-        storage: 1Gi
 - kind: DeploymentConfig
   apiVersion: apps.openshift.io/v1
   metadata:
@@ -279,8 +267,7 @@ objects:
             name: data
         volumes:
         - name: data
-          persistentVolumeClaim:
-            claimName: "${APPLICATION_NAME}-db"
+          emptyDir: {}
         - name: config
           configMap:
             name: "${APPLICATION_NAME}-cfg"
