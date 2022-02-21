@@ -21,7 +21,7 @@ oc apply -f ./images/tensorflow-notebook/build-configs/s2i-tensorflow-notebook.j
 oc apply -f ./templates/jupyterhub-builder.yaml
 oc apply -f ./templates/jupyterhub-deployer.yaml
 
-oc new-app --template jupyterhub-deployer --param-file=os-dv.env
+oc new-app --template jupyterhub-deployer --param-file=os-pr.env
 (Note: must update config maps to use jupyter_config.py)
 
 # Openshift cleanup
