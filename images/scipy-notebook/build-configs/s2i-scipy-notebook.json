@@ -39,7 +39,7 @@
                     "type": "Git",
                     "git": {
                         "uri": "https://github.com/CODA-19/coda19-jupyterhub.git",
-                        "ref": "feature/deploi-images"
+                        "ref": "main"
                     },
                     "contextDir": "images/scipy-notebook"
                 },
