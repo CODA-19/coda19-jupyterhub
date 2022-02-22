@@ -21,11 +21,11 @@ oc apply -f ./images/tensorflow-notebook/build-configs/s2i-tensorflow-notebook.j
 oc apply -f ./templates/jupyterhub-builder.yaml
 oc apply -f ./templates/jupyterhub-deployer.yaml
 
-oc new-app --template jupyterhub-deployer --param-file=os-pr.env
-(Note: must update config maps to use jupyter_config.py)
+oc new-app --template jupyterhub-deployer --param-file=os-dv.env
+(Note: must update config maps to use jupyter_config.py and then redeploi jupyterhub)
 
 # Openshift cleanup
-oc delete all,configmap,pvc,serviceaccount,rolebinding --selector app=jupyterhub
+oc delete all,configmap,pvc,serviceaccount,rolebinding --selector app=coda19-hub-jupyter
 
 # Persisten volume user storage
 oc delete pv jupyterhub-user

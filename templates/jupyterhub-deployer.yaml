@@ -56,6 +56,11 @@ parameters:
   required: true
 - name: JUPYTERHUB_URL
   required: true
+- name: CODA19_JUPYTERHUB_FQDN
+  displayName: Custom https Route Hostname
+  description: >-
+    Custom hostname for https service route. Leave blank for default hostname,
+    e.g.: <application-name>-<namespace>.<default-domain-suffix>
 objects:
 - kind: ConfigMap
   apiVersion: v1
@@ -207,7 +212,7 @@ objects:
     labels:
       app: "${APPLICATION_NAME}"
   spec:
-    host: ''
+    host: "${CODA19_JUPYTERHUB_FQDN}"
     to:
       kind: Service
       name: "${APPLICATION_NAME}"
