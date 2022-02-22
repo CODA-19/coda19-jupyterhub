@@ -19,6 +19,7 @@ if [ x"$JUPYTERHUB_USER" != x"" ]; then
     JUPYTER_WORKSPACE_PATH=/opt/app-root/src/$JUPYTERHUB_USER
     mkdir -p $JUPYTER_WORKSPACE_PATH
     cd $JUPYTER_WORKSPACE_PATH
+    cp -f /opt/app-root/data/content/hub-api-tutorial.ipynb $JUPYTER_WORKSPACE_PATH/hub-api-tutorial.ipynb
 fi
 
 JUPYTER_PROGRAM_ARGS="$JUPYTER_PROGRAM_ARGS $NOTEBOOK_ARGS"
