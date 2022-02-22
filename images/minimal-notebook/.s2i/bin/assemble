@@ -97,9 +97,11 @@ echo "source /opt/app-root/etc/generate_container_user" >> /opt/app-root/etc/scl
 
 # Create additional directories.
 
-echo " -----> Creating additional directories."
+echo " -----> Creating additional directories and shared notebook data."
 
 mkdir -p /opt/app-root/data
+mkdir -p /opt/app-root/data
+mv /tmp/src/content /opt/app-root/data/content
 
 # Generate default supervisord.conf file.
 
