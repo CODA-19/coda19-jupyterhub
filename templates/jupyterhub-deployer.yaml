@@ -24,6 +24,8 @@ parameters:
 - name: JUPYTERHUB_ENVVARS
   value: ''
   required: false
+- name: DATABASE_USER
+  required: true
 - name: DATABASE_PASSWORD
   required: true
 - name: COOKIE_SECRET
@@ -130,6 +132,8 @@ objects:
             limits:
               memory: "${JUPYTERHUB_MEMORY}"
           env:
+          - name: JUPYTERHUB_DATABASE_USER
+            value: "${DATABASE_USER}"
           - name: JUPYTERHUB_DATABASE_PASSWORD
             value: "${DATABASE_PASSWORD}"
           - name: JUPYTERHUB_DATABASE_HOST
@@ -152,6 +156,8 @@ objects:
             value: "${NOTEBOOK_IMAGE}"
           - name: JUPYTERHUB_NOTEBOOK_MEMORY
             value: "${NOTEBOOK_MEMORY}"
+          - name: JUPYTERHUB_DATABASE_USER
+            value: "${DATABASE_USER}"
           - name: JUPYTERHUB_DATABASE_PASSWORD
             value: "${DATABASE_PASSWORD}"
           - name: JUPYTERHUB_DATABASE_HOST

@@ -12,6 +12,9 @@ parameters:
 - name: APPLICATION_NAME
   value: jupyterhub
   required: true
+- name: DATABASE_USER
+  value: ul_cod_pr_jupyterhub_p
+  required: true
 - name: DATABASE_PASSWORD
   generate: expression
   from: "[a-zA-Z0-9]{16}"
@@ -21,6 +24,15 @@ parameters:
   value: 512Mi
   required: true
 objects:
+- kind: ConfigMap
+  apiVersion: v1
+  metadata:
+    name: "${APPLICATION_NAME}-db-cfg"
+    labels:
+      app: "${APPLICATION_NAME}"
+  data:
+    jupyterhub_config.py: "${JUPYTERHUB_CONFIG}"
+    jupyterhub_config.sh: "${JUPYTERHUB_ENVVARS}"
 - kind: DeploymentConfig
   apiVersion: apps.openshift.io/v1
   metadata:
@@ -44,7 +56,7 @@ objects:
         - name: postgresql
           env:
           - name: POSTGRESQL_USER
-            value: jupyterhub
+            value: "${DATABASE_USER}"
           - name: POSTGRESQL_PASSWORD
             value: "${DATABASE_PASSWORD}"
           - name: POSTGRESQL_DATABASE
@@ -74,7 +86,7 @@ objects:
           emptyDir: {}
         - name: config
           configMap:
-            name: "${APPLICATION_NAME}-cfg"
+            name: "${APPLICATION_NAME}-db-cfg"
             defaultMode: 420
     triggers:
     - imageChangeParams:
