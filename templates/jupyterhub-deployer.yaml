@@ -24,6 +24,10 @@ parameters:
 - name: JUPYTERHUB_ENVVARS
   value: ''
   required: false
+- name: JUPYTERHUB_DATABASE_HOST
+  required: true
+- name: JUPYTERHUB_DATABASE_NAME
+  required: true
 - name: DATABASE_USER
   required: true
 - name: DATABASE_PASSWORD
@@ -137,9 +141,9 @@ objects:
           - name: JUPYTERHUB_DATABASE_PASSWORD
             value: "${DATABASE_PASSWORD}"
           - name: JUPYTERHUB_DATABASE_HOST
-            value: "${APPLICATION_NAME}-db"
+            value: "${JUPYTERHUB_DATABASE_HOST}"
           - name: JUPYTERHUB_DATABASE_NAME
-            value: postgres
+            value: "${JUPYTERHUB_DATABASE_NAME}"
         containers:
         - name: jupyterhub
           image: "${JUPYTERHUB_IMAGE}"
@@ -161,9 +165,9 @@ objects:
           - name: JUPYTERHUB_DATABASE_PASSWORD
             value: "${DATABASE_PASSWORD}"
           - name: JUPYTERHUB_DATABASE_HOST
-            value: "${APPLICATION_NAME}-db"
+            value: "${JUPYTERHUB_DATABASE_HOST}"
           - name: JUPYTERHUB_DATABASE_NAME
-            value: postgres
+            value: "${JUPYTERHUB_DATABASE_NAME}"
           - name: JUPYTERHUB_COOKIE_SECRET
             value: "${COOKIE_SECRET}"
           - name: JUPYTERHUB_OAUTH_CLIENT_ID
