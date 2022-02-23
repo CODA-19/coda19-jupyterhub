@@ -25,8 +25,6 @@ parameters:
   value: ''
   required: false
 - name: DATABASE_PASSWORD
-  generate: expression
-  from: "[a-zA-Z0-9]{16}"
   required: true
 - name: COOKIE_SECRET
   generate: expression
@@ -34,10 +32,6 @@ parameters:
   required: true
 - name: JUPYTERHUB_MEMORY
   description: Amount of memory available to JupyterHub.
-  value: 512Mi
-  required: true
-- name: DATABASE_MEMORY
-  description: Amount of memory available to PostgreSQL.
   value: 512Mi
   required: true
 - name: NOTEBOOK_MEMORY
@@ -222,84 +216,3 @@ objects:
     tls:
       termination: edge
       insecureEdgeTerminationPolicy: Redirect
-- kind: DeploymentConfig
-  apiVersion: apps.openshift.io/v1
-  metadata:
-    name: "${APPLICATION_NAME}-db"
-    labels:
-      app: "${APPLICATION_NAME}"
-  spec:
-    replicas: 1
-    selector:
-      app: "${APPLICATION_NAME}"
-      deploymentconfig: "${APPLICATION_NAME}-db"
-    strategy:
-      type: Recreate
-    template:
-      metadata:
-        labels:
-          app: "${APPLICATION_NAME}"
-          deploymentconfig: "${APPLICATION_NAME}-db"
-      spec:
-        containers:
-        - name: postgresql
-          env:
-          - name: POSTGRESQL_USER
-            value: jupyterhub
-          - name: POSTGRESQL_PASSWORD
-            value: "${DATABASE_PASSWORD}"
-          - name: POSTGRESQL_DATABASE
-            value: postgres
-          livenessProbe:
-            tcpSocket:
-              port: 5432
-          ports:
-          - containerPort: 5432
-            protocol: TCP
-          resources:
-            limits:
-              memory: "${DATABASE_MEMORY}"
-          readinessProbe:
-            exec:
-              command:
-              - "/bin/sh"
-              - "-i"
-              - "-c"
-              - psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c
-                'SELECT 1'
-          volumeMounts:
-          - mountPath: "/var/lib/pgsql/data"
-            name: data
-        volumes:
-        - name: data
-          emptyDir: {}
-        - name: config
-          configMap:
-            name: "${APPLICATION_NAME}-cfg"
-            defaultMode: 420
-    triggers:
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-        - postgresql
-        from:
-          kind: ImageStreamTag
-          name: postgresql:9.6
-          namespace: openshift
-      type: ImageChange
-    - type: ConfigChange
-- kind: Service
-  apiVersion: v1
-  metadata:
-    name: "${APPLICATION_NAME}-db"
-    labels:
-      app: "${APPLICATION_NAME}"
-  spec:
-    ports:
-    - name: 5432-tcp
-      protocol: TCP
-      port: 5432
-      targetPort: 5432
-    selector:
-      app: "${APPLICATION_NAME}"
-      deploymentconfig: "${APPLICATION_NAME}-db"

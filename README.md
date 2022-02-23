@@ -17,8 +17,11 @@ oc apply -f ./images/minimal-notebook/build-configs/s2i-minimal-notebook.json
 oc apply -f ./images/scipy-notebook/build-configs/s2i-scipy-notebook.json
 oc apply -f ./images/tensorflow-notebook/build-configs/s2i-tensorflow-notebook.json
 
+# Create docker database (developpement purposes only)
+oc apply -f ./templates/jupyterhub-db.yaml
+oc new-app --template jupyterhub-db --param-file=os-db-dv.env
+
 # Create project openshift
-oc apply -f ./templates/jupyterhub-builder.yaml
 oc apply -f ./templates/jupyterhub-deployer.yaml
 
 oc new-app --template jupyterhub-deployer --param-file=os-dv.env
