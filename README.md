@@ -24,7 +24,7 @@ oc new-app --template jupyterhub-db --param-file=os-db-dv.env
 # Create project openshift
 oc apply -f ./templates/jupyterhub-deployer.yaml
 
-oc new-app --template jupyterhub-deployer --param-file=os-dv.env
+oc new-app --template jupyterhub-deployer --param-file=os-pr.env
 (Note: must update config maps to use jupyter_config.py and then redeploi jupyterhub)
 
 # Openshift cleanup
