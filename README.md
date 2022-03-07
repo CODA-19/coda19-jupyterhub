@@ -30,6 +30,6 @@ oc new-app --template jupyterhub-deployer --param-file=os-pr.env
 # Openshift cleanup
 oc delete all,configmap,pvc,serviceaccount,rolebinding --selector app=coda19-hub-jupyter
 
-# Persisten volume user storage
+# Persisten volume user storage (developpement purposes only)
 oc delete pv jupyterhub-user
 oc apply -f ./user-persistent-volume.yaml
